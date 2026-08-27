@@ -1,0 +1,323 @@
+{% include 'base.html' %}
+{% include 'nav.html' %}
+{% load static %}
+
+<head>
+  <title>{% block title %}Casting Call Details{% endblock %}</title>
+  <style>
+    body {
+      background: linear-gradient(180deg, #f5f1eb 0%, #fdfdfd 30%, #f8fafc 100%);
+      color: #111827;
+    }
+    .detail-shell {
+      max-width: 1200px;
+      margin: 2rem auto 4rem;
+      padding: 0 1rem;
+    }
+    .detail-topbar {
+      background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+      color: white;
+      border-radius: 24px 24px 0 0;
+      padding: 2rem 2rem 1rem;
+    }
+    .status-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 0.8rem;
+    }
+    .status-pill {
+      display: inline-block;
+      background: rgba(244, 185, 66, 0.18);
+      color: #f7d36a;
+      border: 1px solid rgba(244, 185, 66, 0.3);
+      border-radius: 999px;
+      padding: 0.45rem 0.75rem;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .detail-topbar h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.12;
+      letter-spacing: -0.05em;
+      font-weight: 800;
+    }
+    .detail-topbar p {
+      margin: 0.5rem 0 0;
+      color: rgba(255,255,255,0.8);
+      font-size: 1.05rem;
+    }
+    .detail-card {
+      background: #fff;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-top: none;
+      border-radius: 0 0 24px 24px;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+      overflow: hidden;
+    }
+    .detail-body {
+      padding: 2rem;
+    }
+    .image-panel {
+      border-radius: 20px;
+      background: linear-gradient(135deg, #dbeafe, #fef3c7, #e2e8f0);
+      min-height: 360px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+    }
+    .image-panel img {
+      width: 100%;
+      height: 100%;
+      min-height: 360px;
+      object-fit: cover;
+      display: block;
+      position: relative;
+      z-index: 2;
+    }
+    .image-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+    .info-panel {
+      background: #f8fafc;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 18px;
+      padding: 1.2rem;
+      height: 100%;
+    }
+    .info-row {
+      display: flex;
+      gap: 0.9rem;
+      align-items: flex-start;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+    }
+    .info-row:last-child {
+      border-bottom: none;
+    }
+    .icon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(244, 185, 66, 0.15);
+      color: #8a5f00;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .info-row small {
+      display: block;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+    .info-row strong {
+      color: #0f172a;
+      display: block;
+      font-size: 1rem;
+    }
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .primary-btn {
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #f4b942, #f59e0b);
+      color: #111827;
+      padding: 0.8rem 1.3rem;
+      font-weight: 800;
+    }
+    .ghost-btn {
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      border-radius: 999px;
+      background: #fff;
+      color: #111827;
+      padding: 0.8rem 1.2rem;
+      font-weight: 700;
+    }
+    .section-box {
+      background: #fff;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 18px;
+      padding: 1.4rem;
+      margin-top: 1.2rem;
+    }
+    .section-box h3 {
+      margin: 0 0 0.8rem;
+      font-size: 1.1rem;
+      color: #0f172a;
+      font-weight: 800;
+    }
+    .skill-badge {
+      display: inline-block;
+      background: #f8fafc;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      color: #334155;
+      border-radius: 999px;
+      padding: 0.45rem 0.75rem;
+      margin: 0.25rem 0.35rem 0.25rem 0;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+    .contact-card {
+      background: #0f172a;
+      color: white;
+      border-radius: 18px;
+      padding: 1.2rem;
+      margin-top: 1.2rem;
+    }
+    .contact-card p, .contact-card h4 {
+      margin: 0;
+    }
+    .contact-card .row {
+      margin-top: 0.8rem;
+    }
+  </style>
+</head>
+
+{% block body %}
+<body>
+  <div class="detail-shell">
+    <div class="detail-topbar">
+      <div class="status-row">
+        <span class="status-pill">Open now</span>
+        <span class="status-pill">Applications open</span>
+      </div>
+      <h1>{{ object.job_title }}</h1>
+      <p>{{ object.company }} • {{ object.designation }}</p>
+    </div>
+
+    <div class="detail-card">
+      <div class="detail-body">
+        <div class="action-row">
+          <button class="primary-btn" data-toggle="collapse" href="#contactInfo" role="button">Apply now</button>
+          <button class="ghost-btn" onclick="copyShareLink()"><i class="fas fa-share-alt mr-2"></i> Share</button>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-lg-5">
+            <div class="image-panel">
+              {% if object.image %}
+                <img src="{{ object.image.url }}" alt="{{ object.job_title }}">
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="col-lg-7">
+            <div class="info-panel">
+              <div class="info-row">
+                <div class="icon-box"><i class="fas fa-user-tie"></i></div>
+                <div>
+                  <small>Posted by</small>
+                  <strong>{{ object.name }}</strong>
+                </div>
+              </div>
+              <div class="info-row">
+                <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
+                <div>
+                  <small>Location</small>
+                  <strong>{{ object.location }}</strong>
+                </div>
+              </div>
+              <div class="info-row">
+                <div class="icon-box"><i class="fas fa-briefcase"></i></div>
+                <div>
+                  <small>Production category</small>
+                  <strong>{{ object.industry }}</strong>
+                </div>
+              </div>
+              <div class="info-row">
+                <div class="icon-box"><i class="fas fa-calendar-alt"></i></div>
+                <div>
+                  <small>Audition window</small>
+                  <strong>{{ object.starts|default:'Open' }} - {{ object.ends|default:'Rolling' }}</strong>
+                </div>
+              </div>
+              <div class="info-row">
+                <div class="icon-box"><i class="fas fa-rupee-sign"></i></div>
+                <div>
+                  <small>Payment</small>
+                  <strong>{{ object.payment_status|default:'Negotiable' }}</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-box">
+          <h3>Project brief</h3>
+          <p class="mb-0">{{ object.job_details }}</p>
+        </div>
+
+        <div class="section-box">
+          <h3>Required skills</h3>
+          {% for skill in object.skill_tags %}
+            <span class="skill-badge">{{ skill }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="section-box">
+          <h3>Role requirements</h3>
+          <div class="row g-3">
+            <div class="col-md-6"><strong>Role type:</strong> {{ object.role_type }}</div>
+            <div class="col-md-6"><strong>Gender:</strong> {{ object.gender }}</div>
+            <div class="col-md-6"><strong>Age:</strong> {{ object.age_min|default:'Any' }} - {{ object.age_max|default:'Any' }}</div>
+            <div class="col-md-6"><strong>Experience:</strong> {{ object.job_exp }}</div>
+          </div>
+        </div>
+
+        <div class="collapse mt-3" id="contactInfo">
+          <div class="contact-card">
+            <h4>Contact details</h4>
+            <div class="row g-3">
+              <div class="col-md-6"><p><strong>Phone:</strong> {{ object.contact }}</p></div>
+              <div class="col-md-6"><p><strong>Email:</strong> {{ object.email }}</p></div>
+            </div>
+          </div>
+        </div>
+
+        {% if object.author == user %}
+        <div class="section-box">
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <small class="text-muted"><i class="far fa-calendar-check mr-2"></i>Created on {{object.date_posted|date:"F d, Y"}}</small>
+            <div>
+              <a class="btn btn-outline-secondary btn-sm" href="{% url 'recruiter-post-update' object.id %}">Update</a>
+              <a class="btn btn-outline-danger btn-sm" href="{% url 'recruiter-post-delete' object.id %}">Delete</a>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <script>
+  function copyShareLink() {
+    const url = window.location.href;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(function () {
+        alert('Casting call link copied to clipboard.');
+      }).catch(function () {
+        window.prompt('Copy this link:', url);
+      });
+    } else {
+      window.prompt('Copy this link:', url);
+    }
+  }
+  </script>
+</body>
+{% include 'cashtreats/footer-sort.html' %}
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'nav.html' %}
+
+<style>
+	.logout-page {
+		min-height: calc(100vh - 76px);
+		display: grid;
+		place-items: center;
+		padding: 4rem 1rem;
+		background:
+			linear-gradient(135deg, rgba(15, 23, 42, .95), rgba(30, 41, 59, .84)),
+			url("{% static 'assets/img/party.jpg' %}") center / cover;
+	}
+
+	.logout-card {
+		width: min(100%, 560px);
+		overflow: hidden;
+		border: 1px solid rgba(255, 255, 255, .18);
+		border-radius: 26px;
+		background: rgba(255, 255, 255, .96);
+		box-shadow: 0 26px 70px rgba(0, 0, 0, .32);
+	}
+
+	.logout-accent {
+		height: 7px;
+		background: linear-gradient(90deg, #f4b942, #f59e0b, #b45309);
+	}
+
+	.logout-content {
+		padding: clamp(2rem, 6vw, 3.5rem);
+		text-align: center;
+	}
+
+	.logout-icon {
+		width: 78px;
+		height: 78px;
+		display: grid;
+		place-items: center;
+		margin: 0 auto 1.4rem;
+		border-radius: 24px;
+		background: #fff7df;
+		color: #a16207;
+		font-size: 2rem;
+	}
+
+	.logout-content h1 {
+		margin: 0;
+		color: #0f172a;
+		font-family: 'Playfair Display', serif;
+		font-size: clamp(2rem, 5vw, 3rem);
+	}
+
+	.logout-content p {
+		max-width: 360px;
+		margin: .9rem auto 0;
+		color: #64748b;
+		line-height: 1.7;
+	}
+
+	.logout-actions {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: .75rem;
+		margin-top: 2rem;
+	}
+
+	.logout-actions .btn {
+		border-radius: 999px;
+		padding: .8rem 1.25rem;
+		font-weight: 800;
+	}
+
+	.logout-actions .btn-warning {
+		background: #f4b942;
+		border-color: #f4b942;
+		color: #111827;
+	}
+
+	.logout-footnote {
+		margin-top: 1.5rem !important;
+		font-size: .8rem;
+	}
+</style>
+
+<main class="logout-page">
+	<section class="logout-card" aria-labelledby="logout-title">
+		<div class="logout-accent"></div>
+		<div class="logout-content">
+			<div class="logout-icon"><i class="fas fa-sign-out-alt"></i></div>
+			<h1 id="logout-title">Ready to leave the set?</h1>
+			<p>Your profile, saved work, and production connections will be waiting when you return.</p>
+
+			<form method="post" action="{% url 'logout-confirm' %}">
+				{% csrf_token %}
+				<div class="logout-actions">
+					<button class="btn btn-warning" type="submit"><i class="fas fa-sign-out-alt me-2"></i>Sign out</button>
+					<a class="btn btn-outline-dark" href="{% url 'profile' %}">Keep working</a>
+				</div>
+			</form>
+			<p class="logout-footnote">You can sign back in anytime.</p>
+		</div>
+	</section>
+</main>
+
+{% include 'cashtreats/footer.html' %}
+{% endblock %}

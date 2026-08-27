@@ -1,0 +1,108 @@
+
+{% include 'base.html' %}
+{% include 'nav.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<head>
+  <title>{% block title %}Create Casting Call{% endblock %}</title>
+  <style>
+    .form-shell {
+      background: linear-gradient(180deg, #ffffff 0%, #f7f7fb 100%);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+    }
+    .section-label {
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(244, 185, 66, 0.15);
+      color: #8a5f00;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .form-block {
+      padding: 1.2rem 0;
+      border-top: 1px solid rgba(148, 163, 184, 0.18);
+      margin-top: 1rem;
+    }
+    .form-block:first-of-type {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+    }
+  </style>
+</head>
+{% block body %}
+<body style="background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 40%, #ecfeff 100%); min-height: 100vh;">
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-9">
+      <div class="form-shell p-4 p-md-5">
+        <p class="text-uppercase text-muted mb-2">Create opportunity</p>
+        <h1 class="mb-4">Post a film casting call</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="form-block">
+            <span class="section-label">Project details</span>
+            <div class="row g-3">
+              <div class="col-md-6">{{ form.name|as_crispy_field }}</div>
+              <div class="col-md-6">{{ form.designation|as_crispy_field }}</div>
+              <div class="col-md-6">{{ form.company|as_crispy_field }}</div>
+              <div class="col-md-6">{{ form.project_title|as_crispy_field }}</div>
+              <div class="col-md-6">{{ form.industry|as_crispy_field }}</div>
+              <div class="col-md-6">{{ form.image|as_crispy_field }}</div>
+            </div>
+          </div>
+
+          <div class="form-block">
+            <span class="section-label">Role requirements</span>
+            <div class="row g-3">
+              <div class="col-md-6">{{ form.role_type|as_crispy_field }}</div>
+              <div class="col-md-6">{{ form.job_title|as_crispy_field }}</div>
+              <div class="col-md-6">{{ form.gender|as_crispy_field }}</div>
+              <div class="col-md-6">{{ form.payment_status|as_crispy_field }}</div>
+              <div class="col-md-3">{{ form.age_min|as_crispy_field }}</div>
+              <div class="col-md-3">{{ form.age_max|as_crispy_field }}</div>
+              <div class="col-md-6">{{ form.job_exp|as_crispy_field }}</div>
+              <div class="col-md-12">{{ form.skill|as_crispy_field }}</div>
+              <div class="col-md-12">{{ form.job_details|as_crispy_field }}</div>
+            </div>
+          </div>
+
+          <div class="form-block">
+            <span class="section-label">Audition details</span>
+            <div class="row g-3">
+              <div class="col-md-4">{{ form.location|as_crispy_field }}</div>
+              <div class="col-md-4">{{ form.starts|as_crispy_field }}</div>
+              <div class="col-md-4">{{ form.ends|as_crispy_field }}</div>
+              <div class="col-md-6">{{ form.audition_type|as_crispy_field }}</div>
+              <div class="col-md-6">{{ form.job_exp|as_crispy_field }}</div>
+            </div>
+          </div>
+
+          <div class="form-block">
+            <span class="section-label">Contact</span>
+            <div class="row g-3">
+              <div class="col-md-6">{{ form.contact|as_crispy_field }}</div>
+              <div class="col-md-6">{{ form.email|as_crispy_field }}</div>
+            </div>
+          </div>
+
+          <div class="form-group mt-4 mb-0">
+            <button class="btn btn-warning btn-lg px-4" type="submit">Publish casting call</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+{% endblock %}

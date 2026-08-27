@@ -1,0 +1,358 @@
+{% include 'base.html' %}{% include 'nav.html' %}{% load static %}{% block body %}
+<main class="film-landing">
+  <style>
+    .film-landing > section:not(.blog-landing):not(.home-carousel-wrap) { display: none; }
+    .home-carousel-wrap { padding: 1.5rem 0 0; background: #0f172a; }
+    .home-carousel { max-width: 1280px; margin: 0 auto; border-radius: 0 0 22px 22px; overflow: hidden; }
+    .home-carousel .carousel-inner { height: min(58vw, 520px); }
+    .home-carousel .carousel-item { display: none !important; position: relative !important; height: 100%; padding-top: 0 !important; overflow: hidden; }
+    .home-carousel .carousel-item.active { display: block !important; }
+    .home-carousel .carousel-item::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,23,42,.82), rgba(15,23,42,.12)); z-index: 1; }
+    .home-carousel img { width: 100%; height: 100%; object-fit: cover; }
+    .home-carousel .carousel-caption { position: absolute !important; top: auto !important; left: 7% !important; right: auto !important; bottom: 12% !important; width: min(86%, 560px) !important; height: auto !important; z-index: 2; text-align: left; padding: 1.4rem 1.5rem 1.5rem !important; background: rgba(15, 23, 42, .9); border-left: 4px solid #f4b942; border-radius: 0 18px 18px 0; }
+    .home-carousel .carousel-caption * { position: static !important; width: auto !important; height: auto !important; max-width: 100%; }
+    .home-carousel .carousel-caption p:first-child { color: #f4b942; font-size: .72rem; font-weight: 800; letter-spacing: .14em; line-height: 1.3; }
+    .home-carousel h1 { margin: .45rem 0 .6rem; color: #fff; font-size: clamp(1.8rem, 4vw, 3.5rem); line-height: 1.08; font-weight: 800; letter-spacing: -0.04em; }
+    .home-carousel .carousel-caption p:last-child { margin: 0; color: #e2e8f0; font-size: 1rem; line-height: 1.55; }
+    .blog-landing { margin-top: 0; }
+    @media (max-width: 575px) {
+      .home-carousel-wrap { padding-top: .75rem; }
+      .home-carousel .carousel-inner { height: 430px; }
+      .home-carousel .carousel-item { height: 100%; }
+      .home-carousel .carousel-caption { left: 0 !important; bottom: 0 !important; width: 100% !important; border-radius: 0; border-left: 0; border-top: 3px solid #f4b942; padding: 1rem 1.1rem 2.3rem !important; }
+      .home-carousel h1 { font-size: 1.75rem; }
+      .home-carousel .carousel-caption p:last-child { font-size: .9rem; }
+    }
+  </style>
+  <section class="home-carousel-wrap" aria-label="E4U Films highlights">
+    <div id="homeCarousel" class="carousel slide home-carousel" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="E4U Entertainment"></button>
+        <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="1" aria-label="E4U Films"></button>
+        <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="2" aria-label="E4U Presents"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="5000">
+          <img src="{% static 'assets/img/WhatsApp Image 2026-08-26 at 2.25.29 PM.jpeg' %}" alt="E4U Entertainment masks">
+          <div class="carousel-caption">
+            <p class="text-uppercase small mb-2">E4U Entertainment</p>
+            <h1>Where every story finds its stage.</h1>
+            <p>Connect with the creative people and opportunities shaping entertainment.</p>
+          </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="5000">
+          <img src="{% static 'assets/img/f5958675-b25f-49da-bb48-731524f0693d.png' %}" alt="E4U Films camera production">
+          <div class="carousel-caption">
+            <p class="text-uppercase small mb-2">E4U Films</p>
+            <h1>Bring your vision into focus.</h1>
+            <p>Find talent, equipment, locations and opportunities for your next production.</p>
+          </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="5000">
+          <img src="{% static 'assets/img/WhatsApp Image 2026-08-26 at 2.25.30 PM.jpeg' %}" alt="E4U Presents winged unicorn sculpture">
+          <div class="carousel-caption">
+            <p class="text-uppercase small mb-2">E4U Presents</p>
+            <h1>Imagine boldly. Create beautifully.</h1>
+            <p>Build your profile and discover the people who can help make it real.</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev" aria-label="Previous slide"><span class="carousel-control-prev-icon"></span></button>
+      <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next" aria-label="Next slide"><span class="carousel-control-next-icon"></span></button>
+    </div>
+  </section>
+  <section class="film-hero">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          <span class="hero-badge"><i class="fa-solid fa-clapperboard"></i> Professional casting network</span>
+          <h1>Find professional talent. Post casting calls. Build cinematic careers.</h1>
+          <p>From actors and models to directors, crew, and production partners, E4U Films brings the entertainment industry into one streamlined, professional platform.</p>
+          <div class="hero-actions">
+            <a class="btn btn-warning" href="{% url 'friend-post-create' %}">Create your free profile</a>
+            <a class="btn btn-outline-light" href="{% url 'friend-home' %}">Browse talent</a>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat"><strong>4k+</strong><span>Profiles</span></div>
+            <div class="hero-stat"><strong>320+</strong><span>Open roles</span></div>
+            <div class="hero-stat"><strong>18+</strong><span>Indian cities</span></div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="hero-panel">
+            <div class="hero-panel-card">
+              <div class="top-row">
+                <span>Featured profile</span>
+                <span>Available</span>
+              </div>
+              <div class="profile-box">
+                <div class="hero-avatar">S</div>
+                <h3>Seema Sharma</h3>
+                <div class="meta">Actor • Model • Mumbai</div>
+                <div class="mini-list">
+                  <span>Hindi / English</span>
+                  <span>Age 22–28</span>
+                  <span>Portfolio & demo reel ready</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p>Latest casting calls</p>
+          <h2>Auditions, jobs and opportunities</h2>
+        </div>
+        <a class="btn btn-dark" href="{% url 'recruiter-home' %}">Browse all</a>
+      </div>
+      <div class="cast-call-grid">
+        {% for job in latest_jobs %}
+          <article class="cast-call-card">
+            <span class="pill">Open now</span>
+            <h3>{{ job.job_title }}</h3>
+            <div class="meta">
+              <strong>{{ job.location }}</strong>
+              <span>{{ job.company }} • {{ job.job_exp }} yrs exp</span>
+            </div>
+            <div class="cta"><a href="{% url 'recruiter-post-detail' job.pk %}">Apply now →</a></div>
+          </article>
+        {% empty %}
+          <article class="cast-call-card">
+            <span class="pill">Open now</span>
+            <h3>No casting calls yet</h3>
+            <div class="meta">
+              <strong>Create the first opportunity</strong>
+              <span>Start by posting a casting call.</span>
+            </div>
+            <div class="cta"><a href="{% url 'recruiter-post-create' %}">Create one →</a></div>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p>Discover talent</p>
+          <h2>Meet the next faces of the industry</h2>
+        </div>
+        <a class="btn btn-dark" href="{% url 'friend-home' %}">View all talent</a>
+      </div>
+      <div class="talent-grid">
+        <article class="talent-card">
+          <div class="talent-thumb"></div>
+          <div class="body">
+            <span class="role">Actor</span>
+            <h3>Yash Choudhary</h3>
+            <div class="meta">Sikar • 14–15 yrs</div>
+            <div class="skills"><span>Dancing</span><span>Acting</span><span>Modeling</span></div>
+          </div>
+        </article>
+        <article class="talent-card">
+          <div class="talent-thumb"></div>
+          <div class="body">
+            <span class="role">Model</span>
+            <h3>Jasmeet Kaur</h3>
+            <div class="meta">Delhi • 24–25 yrs</div>
+            <div class="skills"><span>Runway</span><span>Commercial</span></div>
+          </div>
+        </article>
+        <article class="talent-card">
+          <div class="talent-thumb"></div>
+          <div class="body">
+            <span class="role">Actor</span>
+            <h3>Deepika Mishra</h3>
+            <div class="meta">Mumbai • 18–28 yrs</div>
+            <div class="skills"><span>Acting</span><span>Voiceover</span></div>
+          </div>
+        </article>
+        <article class="talent-card">
+          <div class="talent-thumb"></div>
+          <div class="body">
+            <span class="role">Director</span>
+            <h3>Arpit Sharma</h3>
+            <div class="meta">Delhi • 18–35 yrs</div>
+            <div class="skills"><span>Acting</span><span>Voiceover</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell">
+    <div class="container">
+      <div class="section-heading center">
+        <p>How it works</p>
+        <h2>Built for the entertainment ecosystem</h2>
+      </div>
+      <div class="process-grid">
+        <article class="process-card">
+          <div class="num">1</div>
+          <h3>Create profile</h3>
+          <p>Set up a professional portfolio with photos, experience and reels.</p>
+        </article>
+        <article class="process-card">
+          <div class="num">2</div>
+          <h3>Search talent</h3>
+          <p>Filter by skill, city, language and shows that match your brief.</p>
+        </article>
+        <article class="process-card">
+          <div class="num">3</div>
+          <h3>Shortlist</h3>
+          <p>Review verified profiles and compare skills before reaching out.</p>
+        </article>
+        <article class="process-card">
+          <div class="num">4</div>
+          <h3>Invite</h3>
+          <p>Connect through direct messaging and manage auditions in one place.</p>
+        </article>
+        <article class="process-card">
+          <div class="num">5</div>
+          <h3>Hire with confidence</h3>
+          <p>Track applications and move from discovery to production seamlessly.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p>Professional casting</p>
+          <h2>Everything your next production needs</h2>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="icon"><i class="fa-solid fa-images"></i></div>
+          <h3>Professional digital profiles</h3>
+          <p>Showcase talent with photos, videos, reels, work history and personal highlights.</p>
+        </article>
+        <article class="feature-card">
+          <div class="icon"><i class="fa-solid fa-shield-check"></i></div>
+          <h3>Verified identities</h3>
+          <p>Build trust with verified casting teams, agencies and production professionals.</p>
+        </article>
+        <article class="feature-card">
+          <div class="icon"><i class="fa-solid fa-message"></i></div>
+          <h3>Direct messaging</h3>
+          <p>Keep communication inside the platform so nothing gets lost across WhatsApp threads.</p>
+        </article>
+        <article class="feature-card">
+          <div class="icon"><i class="fa-solid fa-calendar-check"></i></div>
+          <h3>Audition management</h3>
+          <p>Organize invitations, schedules and applications without juggling disconnected tools.</p>
+        </article>
+        <article class="feature-card">
+          <div class="icon"><i class="fa-solid fa-language"></i></div>
+          <h3>Regional discovery</h3>
+          <p>Filter by Hindi, Marathi, Tamil, Bengali and other key regional language requirements.</p>
+        </article>
+        <article class="feature-card">
+          <div class="icon"><i class="fa-solid fa-bolt"></i></div>
+          <h3>Live casting calls</h3>
+          <p>Post or apply to active roles in real time and keep the momentum moving.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p>Browse by category</p>
+          <h2>Find role types and cities quickly</h2>
+        </div>
+      </div>
+      <div class="chip-list">
+        <a href="{% url 'friend-home' %}">Actor</a>
+        <a href="{% url 'friend-home' %}">Model</a>
+        <a href="{% url 'friend-home' %}">Extra</a>
+        <a href="{% url 'friend-home' %}">Voiceover</a>
+        <a href="{% url 'friend-home' %}">Dancer</a>
+        <a href="{% url 'friend-home' %}">Singer</a>
+        <a href="{% url 'friend-home' %}">Director</a>
+        <a href="{% url 'friend-home' %}">Casting Assistant</a>
+      </div>
+      <div class="location-list">
+        <a href="{% url 'friend-home' %}">Mumbai</a>
+        <a href="{% url 'friend-home' %}">New Delhi</a>
+        <a href="{% url 'friend-home' %}">Pune</a>
+        <a href="{% url 'friend-home' %}">Hyderabad</a>
+        <a href="{% url 'friend-home' %}">Bengaluru</a>
+        <a href="{% url 'friend-home' %}">Kolkata</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell">
+    <div class="container">
+      <div class="section-heading center">
+        <p>Trusted across the industry</p>
+        <h2>What people say</h2>
+      </div>
+      <div class="testimonial-grid">
+        <article class="testimonial-card">
+          <div class="quote">“I stopped chasing casting news across WhatsApp groups. Now the calls come to me and my portfolio is all in one place.”</div>
+          <div class="person">
+            <div class="avatar">S</div>
+            <div><strong>Sneha Patil</strong><span>Actor, Mumbai</span></div>
+          </div>
+        </article>
+        <article class="testimonial-card">
+          <div class="quote">“Filtering by location and language cut our shortlisting time in half. We found regional talent faster and more confidently.”</div>
+          <div class="person">
+            <div class="avatar">A</div>
+            <div><strong>Arjun Malhotra</strong><span>Casting Director</span></div>
+          </div>
+        </article>
+        <article class="testimonial-card">
+          <div class="quote">“For our agency, verified profiles and direct messaging made hiring more accountable and far more professional.”</div>
+          <div class="person">
+            <div class="avatar">N</div>
+            <div><strong>Nikita Roy</strong><span>Talent Agency, Delhi</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell blog-landing">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <p class="text-uppercase text-muted mb-1">Latest from the set</p>
+          <h2 class="mb-0">Industry blogs</h2>
+        </div>
+        <a class="btn btn-dark" href="{% url 'blog-create' %}">Write a blog</a>
+      </div>
+      {% include 'blogs/blog_home.html' %}
+    </div>
+  </section>
+
+  <section class="section-shell pb-5">
+    <div class="container">
+      <div class="cta-panel">
+        <div>
+          <p>Your next role starts here</p>
+          <h2>Build a career or build a cast.</h2>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-warning" href="{% url 'register' %}">Create free profile</a>
+          <a class="btn btn-outline-light" href="{% url 'friend-home' %}">Find professional talent</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% include 'cashtreats/footer.html' %}{% endblock %}

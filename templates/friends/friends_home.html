@@ -1,0 +1,290 @@
+{% include 'base.html' %}
+{% include 'nav.html' %}
+{% load static %}
+
+<head>
+  <title>{% block title %}Film Talent Directory{% endblock %}</title>
+  <style>
+    body {
+      background: linear-gradient(180deg, #f5f1eb 0%, #f8fafc 22%, #eff6ff 100%);
+      color: #111827;
+      font-family: 'Poppins', sans-serif;
+    }
+    .talent-shell {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 0 4rem;
+    }
+    .talent-head {
+      margin-bottom: 1.5rem;
+    }
+    .talent-badge {
+      display: inline-block;
+      background: rgba(244, 185, 66, 0.15);
+      color: #8a5f00;
+      border-radius: 999px;
+      padding: 0.42rem 0.8rem;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    .talent-head h1 {
+      font-size: clamp(2.2rem, 4vw, 3.3rem);
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      margin: 0;
+      color: #0f172a;
+    }
+    .search-panel {
+      background: #fff;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 22px;
+      padding: 1rem 1rem 0.6rem;
+      box-shadow: 0 14px 28px rgba(15, 23, 42, 0.05);
+      margin-bottom: 2rem;
+    }
+    .search-panel .form-control,
+    .search-panel .form-select {
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 12px;
+      height: 48px;
+      font-size: 0.95rem;
+      color: #0f172a;
+      background: #fff;
+    }
+    .search-panel .btn {
+      border-radius: 12px;
+      height: 48px;
+      font-weight: 700;
+      background: #111827;
+      color: white;
+      border: none;
+    }
+    .filters-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .filter-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      background: #f8fafc;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      font-size: 0.85rem;
+      color: #334155;
+      font-weight: 600;
+    }
+    .filter-pill input {
+      accent-color: #f4b942;
+    }
+    .talent-card {
+      background: #fff;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      height: 100%;
+    }
+    .talent-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 38px rgba(15, 23, 42, 0.1);
+    }
+    .talent-card a {
+      text-decoration: none;
+      color: inherit;
+    }
+    .talent-media {
+      position: relative;
+      height: 280px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #dbeafe, #fef3c7, #d1fae5);
+    }
+    .talent-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .status-tag {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(17, 24, 39, 0.8);
+      color: #fff;
+      border-radius: 999px;
+      padding: 0.35rem 0.65rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .talent-body {
+      padding: 1.1rem 1.05rem 1.2rem;
+    }
+    .name-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.35rem;
+    }
+    .talent-body h3 {
+      font-size: 1.18rem;
+      margin: 0;
+      color: #0f172a;
+      font-weight: 800;
+    }
+    .gender-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(244, 185, 66, 0.15);
+      color: #8a5f00;
+      font-size: 0.8rem;
+    }
+    .meta-row {
+      color: #475569;
+      font-size: 0.88rem;
+      margin-bottom: 0.6rem;
+    }
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.7rem;
+    }
+    .tag {
+      background: #f8fafc;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 999px;
+      padding: 0.35rem 0.6rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #334155;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .cta-bar {
+      margin-top: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      color: #0f172a;
+      font-weight: 700;
+    }
+    .cta-bar .link {
+      color: #111827;
+      text-decoration: none;
+    }
+    .cta-bar .link::after {
+      content: "→";
+      margin-left: 0.35rem;
+    }
+  </style>
+</head>
+
+{% block body %}
+<body>
+  <div class="talent-shell">
+    <div class="talent-head">
+      <div class="talent-badge">Talent Directory</div>
+      <h1>Find your next film talent</h1>
+    </div>
+
+    <form method='GET' action="{% url 'friend-home' %}">
+      <div class="search-panel">
+        <div class="row g-2">
+          <div class="col-lg-5">
+            <input type="text" name='q' class="form-control" placeholder="Search by name, skill, city or language">
+          </div>
+          <div class="col-lg-3">
+            <select class="form-select" name="city">
+              <option value="">All film cities</option>
+              {% for value, label in cities %}
+                <option value="{{ value }}" {% if city == value %}selected{% endif %}>{{ label }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-lg-3">
+            <select class="form-select" name="role">
+              <option value="">All industry roles</option>
+              {% for value, label in roles %}
+                <option value="{{ value }}" {% if role == value %}selected{% endif %}>{{ label }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-lg-1">
+            <button class="btn w-100" type="submit">Go</button>
+          </div>
+        </div>
+
+        <div class="filters-row">
+          <label class="filter-pill"><input type="radio" name="gender" value="" {% if not gender %}checked{% endif %}> All</label>
+          <label class="filter-pill"><input type="radio" name="gender" value="Female" {% if gender == 'Female' %}checked{% endif %}> Female</label>
+          <label class="filter-pill"><input type="radio" name="gender" value="Male" {% if gender == 'Male' %}checked{% endif %}> Male</label>
+        </div>
+      </div>
+    </form>
+
+    <div class="row g-4 mt-1">
+      {% for posts in queryset %}
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="talent-card">
+          <a href="{% url 'friend-post-detail' posts.id %}">
+            <div class="talent-media">
+              {% if posts.photo %}
+                <img src="{{ posts.photo.url }}" alt="{{ posts.name }}">
+              {% else %}
+                <img src="{% static 'assets/img/default-profile.jpg' %}" alt="{{ posts.name }}">
+              {% endif %}
+              <span class="status-tag">{{ posts.city }}</span>
+            </div>
+            <div class="talent-body">
+              <div class="name-line">
+                <h3>{{ posts.name }}</h3>
+                <span class="gender-mark">
+                  {% if posts.gender == 'Female' %}<i class="fas fa-venus"></i>{% else %}<i class="fas fa-mars"></i>{% endif %}
+                </span>
+              </div>
+              <div class="meta-row">{{ posts.age }} • {{ posts.city }}</div>
+              <div class="meta-row">{{ posts.language }}</div>
+              <div class="tag-row">
+                {% for role in posts.roles|slice:':3' %}
+                  <span class="tag">{{ role }}</span>
+                {% empty %}
+                  <span class="tag">Film talent</span>
+                {% endfor %}
+              </div>
+              <div class="cta-bar">
+                <span>{{ posts.fees }}</span>
+                <span class="link">View profile</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12">
+        <div class="alert alert-light border rounded-4 p-4">No profiles matched your search. Try different filters or post a new talent profile.</div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="d-flex justify-content-center mt-5">
+      {% include 'cashtreats/blog_post_pagination.html' with queryset=queryset %}
+    </div>
+  </div>
+
+{% include 'cashtreats/footer-sort.html' %}
+</body>
+{% endblock %}
